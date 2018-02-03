@@ -34,20 +34,27 @@
         values.forEach(function(value, lcv){
             proxies[lcv] = new Proxy(new Array(), {
                 get: function(target, name, v) {
-                    if(typeof name === 'symbol') return;
-                    if(!isNumber(name)) return;
-                    values[lcv] = typeof name === 'number'?name:parseInt(name);
+                    var type = typeof name;
+                    var value = name;
+                    if(type === 'symbol') return target[name];
+                    if(type === 'string'){
+                        var c = name.charCodeAt(0);
+                        if(c >= 48 && c<58 ){ //first char is numeric
+                            value = parseInt(name);
+                            type = 'number';
+                        }else return;
+                    }
+                    if(type !== 'number') return target[name];
+                    values[lcv] = value;
                     var result;
                     try{
                     if(lcv !== len-1){
                         result = proxies[lcv+1]
                     }else{
-                        result = values.map(function(value, index){
-                            return value * dimensions[index]
-                        });
-                        result = result.reduce(function(accumulator, currentValue){
-                            return accumulator + currentValue;
-                        });
+                        result = 0;
+                        for(var index=0; index< values.length; index++){
+                            result += values[index] * dimensions[index]
+                        }
                         //console.log('i:', result);
                         return array[result];
                     }
@@ -57,15 +64,22 @@
                     return result;
                 },
                 set: function(target, name, value) {
-                    if(typeof name === 'symbol') return;
-                    if(!isNumber(name)) return;
-                    values[lcv] = typeof name === 'number'?name:parseInt(name);
-                    var result = values.map(function(value, index){
-                        return value * dimensions[index]
-                    });
-                    result = result.reduce(function(accumulator, currentValue){
-                        return accumulator + currentValue;
-                    });
+                    var type = typeof name;
+                    var value = name;
+                    if(type === 'symbol') return target[name];
+                    if(type === 'string'){
+                        var c = name.charCodeAt(0);
+                        if(c >= 48 && c<58 ){ //first char is numeric
+                            value = parseInt(name);
+                            type = 'number';
+                        }else return;
+                    }
+                    if(type !== 'number') return target[name];
+                    values[lcv] = value;
+                    var result = 0;
+                    for(var index=0; index< values.length; index++){
+                        result += values[index] * dimensions[index]
+                    }
                     //console.log('i:', result, dimensions, values);
                     if(lcv === dimensions.length-1) return array[result];
                     throw new Error('cannot set subarrays, just values');
