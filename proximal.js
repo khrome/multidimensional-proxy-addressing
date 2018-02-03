@@ -63,7 +63,7 @@
                     }
                     return result;
                 },
-                set: function(target, name, value) {
+                set: function(target, name, newValue) {
                     var type = typeof name;
                     var value = name;
                     if(type === 'symbol') return target[name];
@@ -81,7 +81,7 @@
                         result += values[index] * dimensions[index]
                     }
                     //console.log('i:', result, dimensions, values);
-                    if(lcv === dimensions.length-1) return array[result];
+                    if(lcv === dimensions.length-1) return array[result] = newValue;
                     throw new Error('cannot set subarrays, just values');
 
                 },

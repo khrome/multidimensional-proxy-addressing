@@ -1,7 +1,7 @@
 {
     "name": "multidimensional-proxy-addressing",
     "homepage": "https://github.com/khrome/multidimensional-proxy-addressing",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "main": "proximal.js",
     "description": "Testing the sweet spot for addressing multidimensional arrays",
     "keywords": [
