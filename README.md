@@ -5,7 +5,7 @@ So I wondered if it would be possible to use 2 parallel arrays of proxies and va
 
 It turns out, that while it's ridiculously slow... it is possible, and it works in any number of dimensions.
 
-    proxyAddressing = require('./proximal');
+    proxyAddressing = require('multidimensional-proxy-addressing');
     var dims = {
         x : 1000,
         y : 100,
