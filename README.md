@@ -18,6 +18,6 @@ It turns out, that while it's ridiculously slow... it is possible, and it works 
 
 For speed reference here are the timings:
 
-10000000 one dimensional assignments : 185ms
-10000000 3 dimensional assignments : 361ms
-10000000 3 pseudo dimensional assignments : 19650ms (ouch!)
+- 10000000 one dimensional assignments : 185ms
+- 10000000 3 dimensional assignments : 361ms
+- 10000000 3 pseudo dimensional assignments : 19650ms (ouch!)
